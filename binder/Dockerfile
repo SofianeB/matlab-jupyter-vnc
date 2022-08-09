@@ -83,8 +83,6 @@ RUN wget -q https://www.mathworks.com/mpm/glnxa64/mpm && \
     rm -f mpm /tmp/mathworks_root.log && \
     ln -s /opt/matlab/bin/matlab /usr/local/bin/matlab
 
-RUN wget -O ParaView-5.10.1.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz"
-
 # Install patched glibc - See https://github.com/mathworks/build-glibc-bz-19329-patch
 WORKDIR /packages
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -142,3 +140,15 @@ RUN export RESOURCES_LOC=$(python -c "import jupyter_matlab_vnc_proxy as pkg; pr
 
 # Fixes occasional failure to start VNC desktop, which requires a reloading of the webpage to fix.
 RUN touch ${HOME}/.Xauthority
+
+# Install paraview
+WORKDIR /opt
+
+RUN wget -O ParaView-5.10.1.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz"
+
+RUN tar -xzvf ParaView-5.10.1.tar.gz && \
+    rm ParaView-5.10.1.tar.gz
+    
+ENV PATH=$PATH:/opt/ParaView-5.10.1-MPI-Linux-Python3.9-x86_64/bin
+
+WORKDIR /
