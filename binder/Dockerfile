@@ -109,6 +109,18 @@ RUN mkdir -p ${NOVNC_PATH} \
     | tar -zxf - -C ${NOVNC_PATH} --strip=1 \
     && chown -R ${NB_USER}:users ${NOVNC_PATH}
 
+# Install paraview
+WORKDIR /opt
+
+RUN wget -O ParaView-5.10.1.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz"
+
+RUN tar -xzvf ParaView-5.10.1.tar.gz && \
+    rm ParaView-5.10.1.tar.gz
+    
+ENV PATH=$PATH:/opt/ParaView-5.10.1-MPI-Linux-Python3.9-x86_64/bin
+
+WORKDIR /
+
 # JOVYAN is the default user in jupyter/base-notebook.
 # JOVYAN is being set to be passwordless. 
 # This allows users to easily wake the desktop when it goes to sleep.
@@ -141,14 +153,3 @@ RUN export RESOURCES_LOC=$(python -c "import jupyter_matlab_vnc_proxy as pkg; pr
 # Fixes occasional failure to start VNC desktop, which requires a reloading of the webpage to fix.
 RUN touch ${HOME}/.Xauthority
 
-# Install paraview
-WORKDIR /opt
-
-RUN wget -O ParaView-5.10.1.tar.gz "https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz"
-
-RUN tar -xzvf ParaView-5.10.1.tar.gz && \
-    rm ParaView-5.10.1.tar.gz
-    
-ENV PATH=$PATH:/opt/ParaView-5.10.1-MPI-Linux-Python3.9-x86_64/bin
-
-WORKDIR /
