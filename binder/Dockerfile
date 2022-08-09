@@ -70,7 +70,9 @@ RUN wget ${MATLAB_DEPS_REQUIREMENTS_FILE} -O ${MATLAB_DEPS_REQUIREMENTS_FILE_NAM
     qt5-default \
     mesa-utils \
     pciutils \
-    nvidia-346-dev \
+    xserver-xorg-core \
+    libxv1 \
+    x11-xserver-utils \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
