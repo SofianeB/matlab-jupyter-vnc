@@ -70,6 +70,7 @@ RUN wget ${MATLAB_DEPS_REQUIREMENTS_FILE} -O ${MATLAB_DEPS_REQUIREMENTS_FILE_NAM
     qt5-default \
     mesa-utils \
     pciutils \
+    nvidia-346-dev \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
@@ -124,6 +125,11 @@ ENV PATH=$PATH:/opt/ParaView-5.10.1-MPI-Linux-Python3.9-x86_64/bin
 ENV LIBGL_ALWAYS_INDIRECT=y
 
 ENV LIBGL_DEBUG_PLUGINS=y
+
+WORKDIR /tmp
+RUN curl -L -o virtualgl_2.5.2_amd64.deb 'https://downloads.sourceforge.net/project/virtualgl/2.5.2/virtualgl_2.5.2_amd64.deb?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fvirtualgl%2Ffiles%2F2.5.2&ts=1509495317&use_mirror=auto'
+RUN dpkg -i virtualgl_2.5.2_amd64.deb
+RUN printf "1\nn\nn\nn\nx\n" | /opt/VirtualGL/bin/vglserver_config
 
 WORKDIR /
 
