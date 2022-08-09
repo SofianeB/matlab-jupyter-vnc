@@ -121,6 +121,10 @@ RUN tar -xzvf ParaView-5.10.1.tar.gz && \
     
 ENV PATH=$PATH:/opt/ParaView-5.10.1-MPI-Linux-Python3.9-x86_64/bin
 
+ENV LIBGL_ALWAYS_INDIRECT=y
+
+ENV LIBGL_DEBUG_PLUGINS=y
+
 WORKDIR /
 
 # JOVYAN is the default user in jupyter/base-notebook.
