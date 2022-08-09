@@ -69,6 +69,7 @@ RUN wget ${MATLAB_DEPS_REQUIREMENTS_FILE} -O ${MATLAB_DEPS_REQUIREMENTS_FILE_NAM
     xscreensaver \
     qt5-default \
     mesa-utils \
+    pciutils \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
