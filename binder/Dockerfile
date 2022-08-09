@@ -101,7 +101,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
 WORKDIR /
 
 # Install tigervnc to /usr/local
-RUN curl -sSfL 'https://sourceforge.net/projects/tigervnc/files/stable/1.7.0/tigervnc-1.7.0.x86_64.tar.gz/download' \
+RUN curl -sSfL 'https://sourceforge.net/projects/tigervnc/files/stable/1.10.1/tigervnc-1.10.1.x86_64.tar.gz/download' \
     | tar -zxf - -C /usr/local --strip=2
 
 # noVNC provides VNC over browser capability
